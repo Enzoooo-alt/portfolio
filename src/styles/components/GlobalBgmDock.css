@@ -1,0 +1,53 @@
+.global-bgm-dock {
+  position: fixed;
+  right: 14px;
+  bottom: 14px;
+  z-index: 90;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.55rem 0.65rem;
+  border-radius: 12px;
+  background: rgba(15, 23, 42, 0.86);
+  border: 1px solid rgba(148, 163, 184, 0.36);
+  color: #e2e8f0;
+  backdrop-filter: blur(6px);
+}
+
+.global-bgm-track {
+  font-size: 0.78rem;
+  font-weight: 700;
+  max-width: 240px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.global-bgm-actions {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.global-bgm-actions button {
+  border: 1px solid rgba(148, 163, 184, 0.38);
+  background: rgba(30, 41, 59, 0.9);
+  color: #fff;
+  border-radius: 8px;
+  padding: 0.3rem 0.55rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+@media (max-width: 680px) {
+  .global-bgm-dock {
+    right: 8px;
+    left: 8px;
+    bottom: 8px;
+    justify-content: space-between;
+  }
+
+  .global-bgm-track {
+    max-width: 52vw;
+  }
+}

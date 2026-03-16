@@ -1,19 +1,19 @@
 
-import React, { useEffect } from "react";
+import React, { lazy, Suspense, useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
+import AppLoader from "./components/AppLoader";
+import GlobalBgmDock from "./components/GlobalBgmDock";
 
-import WiiMenu from "./WiiMenu";
-import Portfolio from "./Portfolio";
-import About from "./About";
-import CuillereBot from "./CuillereBot";
-import PokemonTypes from "./PokemonTypes";
-import MemoryGame from "./MemoryGame";
-import GestionLayout from "./GestionLayout";
-import ReactCourse from "./ReactCourse";
-import DemonSlayerApp from "./demon-slayer";
-import InazumaDraft from "./InazumaDraft";
-import ImageToLink from "./ImageToLink";
-import CarsRacing from "./CarsRacing";
+const WiiMenu = lazy(() => import("./pages/WiiMenu"));
+const Portfolio = lazy(() => import("./pages/Portfolio"));
+const About = lazy(() => import("./pages/About"));
+const CuillereBot = lazy(() => import("./pages/CuillereBot"));
+const PokemonTypes = lazy(() => import("./pages/PokemonTypes"));
+const GestionLayout = lazy(() => import("./layouts/GestionLayout"));
+const DemonSlayerApp = lazy(() => import("./pages/DemonSlayer"));
+const InazumaDraft = lazy(() => import("./pages/InazumaDraft"));
+const CarsRacing = lazy(() => import("./pages/CarsRacing"));
+const YoKaiMedallium = lazy(() => import("./pages/YoKaiMedallium"));
 
 export default function App() {
   const location = useLocation();
@@ -29,19 +29,22 @@ export default function App() {
   }, [location.pathname]);
 
   return (
-    <Routes>
-      <Route path="/menu" element={<WiiMenu />} />
-      <Route path="/" element={<Portfolio />} />
-      <Route path="/about" element={<About />} />
-      <Route path="/cuillere" element={<CuillereBot />} />
-      <Route path="/pokemon-types" element={<PokemonTypes />} />
-      <Route path="/memory-game" element={<MemoryGame />} />
-      <Route path="/app-de-gestion/*" element={<GestionLayout />} />
-      <Route path="/react-course" element={<ReactCourse />} />
-      <Route path="/demon-slayer" element={<DemonSlayerApp />} />
-      <Route path="/inazuma-draft" element={<InazumaDraft />} />
-      <Route path="/image-to-link" element={<ImageToLink />} />
-      <Route path="/cars-racing" element={<CarsRacing />} />
-    </Routes>
+    <Suspense fallback={<AppLoader />}>
+      <>
+        <Routes>
+          <Route path="/menu" element={<WiiMenu />} />
+          <Route path="/" element={<Portfolio />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/cuillere" element={<CuillereBot />} />
+          <Route path="/pokemon-types" element={<PokemonTypes />} />
+          <Route path="/app-de-gestion/*" element={<GestionLayout />} />
+          <Route path="/demon-slayer" element={<DemonSlayerApp />} />
+          <Route path="/inazuma-draft" element={<InazumaDraft />} />
+          <Route path="/cars-racing" element={<CarsRacing />} />
+          <Route path="/yokai-medallium" element={<YoKaiMedallium />} />
+        </Routes>
+        <GlobalBgmDock />
+      </>
+    </Suspense>
   );
 }

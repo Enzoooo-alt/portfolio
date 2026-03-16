@@ -1,16 +1,75 @@
-# React + Vite
+# Portfolio Enzo Bourgin (React + Vite)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Application principale du portfolio déployée sur `enzobourgin.fr`.
 
-Currently, two official plugins are available:
+## Démarrage rapide
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+```bash
+npm install
+npm run dev
+```
 
-## React Compiler
+Build de production :
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+npm run build
+```
 
-## Expanding the ESLint configuration
+Prévisualisation locale du build :
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```bash
+npm run preview
+```
+
+## Structure du front (`src`)
+
+```text
+src/
+├─ App.jsx
+├─ main.jsx
+├─ index.css
+├─ pages/                        # Pages portfolio et mini-apps
+├─ layouts/                      # Layouts de navigation (ex: app de gestion)
+├─ features/
+│  └─ school-management/         # Feature isolée "app-de-gestion"
+│     ├─ components/
+│     └─ pages/
+├─ styles/
+│  ├─ pages/                     # CSS des pages
+│  └─ WiiMenu.css
+└─ assets/
+```
+
+## Dossiers annexes dans ce workspace
+
+Ces dossiers existent dans le même repo mais ne sont pas utilisés par le build Vite du portfolio principal :
+
+- `b2lp/`
+- `inazuma-eleven/`
+- `MaBanque/`
+- `cuillere-backend/`
+
+## Déploiement VPS
+
+Guide détaillé : voir `docs/DEPLOYMENT_VPS.md`.
+
+Ce guide couvre maintenant :
+
+- déploiement front Vite (SPA)
+- déploiement API Yo-kai (`yokai-medallium-api`) en service systemd
+- configuration MySQL + import wiki
+- reverse proxy `/api/yokai` (Apache/Nginx)
+- SSL, cron d’import, checklist post-déploiement
+
+Résumé :
+
+1. `npm ci`
+2. `npm run build`
+3. Publier le contenu de `dist/` dans la racine web de `enzobourgin.fr`
+4. Vérifier la réécriture SPA (fichier `.htaccess` présent dans `public/`)
+
+## Vérification avant mise en ligne
+
+- `npm run build` passe sans erreur
+- Les routes SPA (`/menu`, `/about`, `/app-de-gestion/...`) fonctionnent en accès direct
+- Les liens externes et CTA (mail/téléphone) répondent correctement

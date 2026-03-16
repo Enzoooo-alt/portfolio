@@ -1,0 +1,195 @@
+.cars-racing.cards-mode {
+  width: min(1120px, calc(100vw - 2rem));
+  margin: 1.2rem auto 2rem;
+  padding: 1.2rem;
+  border-radius: 18px;
+  background: linear-gradient(180deg, #0f172a 0%, #172554 100%);
+  color: #eff6ff;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 20px 50px rgba(2, 8, 23, 0.4);
+}
+
+.back-button {
+  background: rgba(255, 255, 255, 0.14);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 10px;
+  padding: 0.55rem 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.cards-header h1 {
+  margin: 0.8rem 0 0.35rem;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+}
+
+.cards-header p {
+  margin: 0;
+  color: #dbeafe;
+}
+
+.cards-stats-grid {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.7rem;
+}
+
+.stat-card {
+  background: rgba(15, 23, 42, 0.75);
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  border-radius: 12px;
+  padding: 0.65rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.stat-card strong {
+  color: #93c5fd;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.stat-card span {
+  font-size: 1.25rem;
+  font-weight: 800;
+}
+
+.cards-actions {
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+}
+
+.start-btn,
+.control-btn {
+  border: none;
+  border-radius: 12px;
+  padding: 0.68rem 1rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.start-btn {
+  background: linear-gradient(135deg, #f97316, #ef4444);
+  color: #fff;
+}
+
+.start-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.control-btn.nitro-btn {
+  background: linear-gradient(135deg, #0ea5e9, #2563eb);
+  color: #fff;
+}
+
+.control-btn.pause-btn {
+  background: linear-gradient(135deg, #6b7280, #475569);
+  color: #fff;
+}
+
+.cards-section {
+  margin-top: 1.25rem;
+  background: rgba(15, 23, 42, 0.5);
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  border-radius: 14px;
+  padding: 0.9rem;
+}
+
+.cards-section h2 {
+  margin: 0 0 0.65rem;
+  font-size: 1.1rem;
+  color: #bfdbfe;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.75rem;
+}
+
+.collect-card {
+  background: rgba(30, 41, 59, 0.88);
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  border-radius: 12px;
+  padding: 0.75rem;
+}
+
+.collect-card h3 {
+  margin: 0 0 0.3rem;
+  font-size: 1rem;
+}
+
+.collect-card p {
+  margin: 0.2rem 0;
+  color: #dbeafe;
+  font-size: 0.9rem;
+}
+
+.card-skill {
+  color: #fef08a !important;
+  font-weight: 700;
+}
+
+.card-power {
+  color: #fca5a5 !important;
+  font-weight: 800;
+}
+
+.rarity-commune {
+  border-color: rgba(148, 163, 184, 0.45);
+}
+
+.rarity-rare {
+  border-color: rgba(56, 189, 248, 0.8);
+}
+
+.rarity-épique {
+  border-color: rgba(192, 132, 252, 0.9);
+}
+
+.rarity-légendaire {
+  border-color: rgba(250, 204, 21, 0.95);
+  box-shadow: 0 0 20px rgba(250, 204, 21, 0.22);
+}
+
+.battle-log {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.battle-log p {
+  margin: 0;
+  background: rgba(30, 41, 59, 0.8);
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  border-radius: 10px;
+  padding: 0.55rem 0.65rem;
+  font-size: 0.9rem;
+}
+
+.empty-state {
+  color: #cbd5e1;
+  margin: 0;
+}
+
+@media (max-width: 700px) {
+  .cars-racing.cards-mode {
+    width: calc(100vw - 1rem);
+    padding: 0.8rem;
+  }
+
+  .cards-actions {
+    flex-direction: column;
+  }
+
+  .start-btn,
+  .control-btn {
+    width: 100%;
+  }
+}

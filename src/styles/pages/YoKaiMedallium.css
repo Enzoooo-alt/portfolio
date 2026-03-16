@@ -1,0 +1,168 @@
+.yokai-medallium-page {
+  width: min(1250px, calc(100vw - 2rem));
+  margin: 1rem auto 2rem;
+  padding: 1rem;
+  color: #f8fafc;
+  background: radial-gradient(circle at top, #1e293b, #0f172a 60%);
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  border-radius: 18px;
+}
+
+.medallium-header h1 {
+  margin: 0;
+  font-size: clamp(1.4rem, 3.2vw, 2.1rem);
+}
+
+.medallium-header p {
+  margin: 0.4rem 0 0;
+  color: #cbd5e1;
+}
+
+.medallium-controls {
+  margin-top: 0.9rem;
+  display: grid;
+  grid-template-columns: 1fr 220px 150px;
+  gap: 0.55rem;
+}
+
+.medallium-controls input,
+.medallium-controls select,
+.medallium-controls button {
+  border: 1px solid rgba(148, 163, 184, 0.4);
+  border-radius: 10px;
+  padding: 0.6rem 0.7rem;
+  font-weight: 600;
+}
+
+.medallium-controls button {
+  background: linear-gradient(135deg, #0ea5e9, #2563eb);
+  color: #fff;
+  cursor: pointer;
+}
+
+.medallium-progress {
+  margin-top: 0.8rem;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.progress-bar {
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(148, 163, 184, 0.3);
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(135deg, #22d3ee, #22c55e);
+}
+
+.medallium-progress span {
+  color: #bfdbfe;
+  font-size: 0.9rem;
+}
+
+.medallium-error {
+  margin-top: 0.7rem;
+  padding: 0.6rem;
+  border-radius: 10px;
+  border: 1px solid rgba(248, 113, 113, 0.55);
+  background: rgba(127, 29, 29, 0.35);
+}
+
+.medallium-layout {
+  margin-top: 0.9rem;
+  display: grid;
+  grid-template-columns: 1.3fr 0.9fr;
+  gap: 0.75rem;
+}
+
+.medallium-wheel {
+  background: rgba(15, 23, 42, 0.72);
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  border-radius: 14px;
+  padding: 0.7rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 0.55rem;
+  max-height: 70vh;
+  overflow: auto;
+}
+
+.wheel-placeholder {
+  color: #cbd5e1;
+}
+
+.medal-slot {
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  border-radius: 12px;
+  padding: 0.35rem;
+  background: rgba(30, 41, 59, 0.7);
+  color: #e2e8f0;
+  cursor: pointer;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.medal-slot.active {
+  border-color: rgba(34, 211, 238, 0.85);
+  box-shadow: 0 0 0 2px rgba(34, 211, 238, 0.25);
+}
+
+.medal-slot img {
+  width: 100%;
+  height: 90px;
+  object-fit: contain;
+}
+
+.medal-slot span {
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.yokai-detail-card {
+  background: rgba(15, 23, 42, 0.75);
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  border-radius: 14px;
+  padding: 0.8rem;
+}
+
+.yokai-detail-card h2 {
+  margin: 0;
+}
+
+.yokai-detail-card .meta {
+  color: #cbd5e1;
+  margin: 0.25rem 0 0.55rem;
+}
+
+.yokai-detail-card .images {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.4rem;
+  margin-bottom: 0.55rem;
+}
+
+.yokai-detail-card .images img {
+  width: 100%;
+  height: 160px;
+  object-fit: contain;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.yokai-detail-card a {
+  color: #67e8f9;
+  font-weight: 700;
+}
+
+@media (max-width: 940px) {
+  .medallium-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .medallium-controls {
+    grid-template-columns: 1fr;
+  }
+}

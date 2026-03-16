@@ -1,0 +1,786 @@
+/* ====== RESET ET STYLES DE BASE ====== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+/* ====== CONTAINER PRINCIPAL QUI PREND TOUT L'ÉCRAN ====== */
+.memory-game-container {
+  width: 100vw;
+  min-height: 100vh;
+  height: 100%;
+  text-align: center;
+  font-family: "Segoe UI", sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 20px;
+  position: relative;
+  overflow-y: auto;
+}
+
+/* Background animé */
+.memory-game-container::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 50%, rgba(255, 215, 0, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(77, 166, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 80%, rgba(255, 107, 107, 0.08) 0%, transparent 50%);
+  z-index: 0;
+}
+
+/* ====== TITRE ====== */
+.memory-game-container h1 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  margin: 20px 0;
+  color: white;
+  text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.3);
+  position: relative;
+  z-index: 1;
+  background: linear-gradient(45deg, #FFD700, #FF6B6B);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ====== BARRE D'INFORMATIONS ====== */
+.game-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+  padding: 20px;
+  margin: 20px 0;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  position: relative;
+  z-index: 1;
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.level-select {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.level-select label {
+  color: #2C3E50;
+}
+
+.level-select select {
+  padding: 10px 20px;
+  border: 2px solid #4DA6FF;
+  border-radius: 15px;
+  background: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s;
+  min-width: 180px;
+  font-size: 1rem;
+}
+
+.level-select select:hover {
+  border-color: #FFD700;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(77, 166, 255, 0.3);
+}
+
+.stats {
+  display: flex;
+  gap: 30px;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.moves, .timer {
+  background: linear-gradient(135deg, #4DA6FF, #1E90FF);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(77, 166, 255, 0.4);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 150px;
+  justify-content: center;
+}
+
+/* ====== INSTRUCTIONS ====== */
+.instructions {
+  font-size: 1.3rem;
+  color: white;
+  margin: 10px 0 30px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  position: relative;
+  z-index: 1;
+  padding: 10px 20px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 15px;
+  backdrop-filter: blur(5px);
+}
+
+/* ====== ANIMATION DE SÉRIE ====== */
+.streak-celebration {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  animation: streakPopup 0.8s ease-out;
+}
+
+@keyframes streakPopup {
+  0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+  70% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+}
+
+.streak-text {
+  font-size: 2rem;
+  font-weight: bold;
+  background: linear-gradient(45deg, #FF0000, #FF7F00, #FFFF00);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  padding: 20px 40px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* ====== GRILLE DE CARTES ADAPTÉE À CHAQUE NIVEAU ====== */
+.cards-grid {
+  display: grid;
+  gap: 15px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto 30px;
+  flex: 1;
+  position: relative;
+  z-index: 1;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Configuration pour niveau Facile (6 cartes = 3x2) */
+.cards-grid.facile {
+  grid-template-columns: repeat(3, 1fr);
+  max-width: 600px;
+}
+
+/* Configuration pour niveau Moyen (12 cartes = 4x3) */
+.cards-grid.moyen {
+  grid-template-columns: repeat(4, 1fr);
+  max-width: 800px;
+}
+
+/* Configuration pour niveau Difficile (24 cartes = 6x4) */
+.cards-grid.difficile {
+  grid-template-columns: repeat(6, 1fr);
+  max-width: 1200px;
+}
+
+/* ====== CARTES - STRUCTURE CORRECTE ====== */
+.card {
+  width: 100%;
+  aspect-ratio: 2/3; /* Ratio standard pour les cartes */
+  position: relative;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.4, 0.0, 0.2, 1);
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  user-select: none;
+}
+
+/* Carte retournée - VOIT l'image Pokémon */
+.card.flipped {
+  transform: rotateY(180deg);
+}
+
+/* Carte matchée - reste retournée ET a une animation spéciale */
+.card.matched {
+  cursor: default;
+  transform: rotateY(180deg);
+  animation: matchedGlow 2s infinite alternate;
+}
+
+@keyframes matchedGlow {
+  0% {
+    box-shadow: 
+      0 8px 20px rgba(0, 0, 0, 0.3),
+      0 0 15px rgba(39, 174, 96, 0.5);
+  }
+  100% {
+    box-shadow: 
+      0 8px 20px rgba(0, 0, 0, 0.3),
+      0 0 25px rgba(39, 174, 96, 0.8);
+  }
+}
+
+/* Conteneur pour les deux faces */
+.card-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.6s;
+  border-radius: 13px;
+}
+
+/* Pas besoin de cette règle car .card gère la rotation */
+/* .card.flipped .card-inner { transform: rotateY(180deg); } */
+
+/* Les deux faces de la carte */
+.card-front, .card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 13px;
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+  overflow: hidden;
+}
+
+/* Face ARRIÈRE : Dos de la carte avec "?" (VISIBLE AU DÉBUT) */
+.card-back {
+  background: linear-gradient(135deg, #4DA6FF, #1E8CFF);
+  border: 4px solid white;
+  color: white;
+  transform: rotateY(0deg); /* IMPORTANT: visible au début */
+}
+
+.card-back span {
+  font-size: 3rem;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Face AVANT : Image Pokémon (CACHÉE AU DÉBUT, VISIBLE QUAND RETOURNÉE) */
+.card-front {
+  background: linear-gradient(135deg, #ffffff, #f8f9fa);
+  border: 4px solid #4DA6FF;
+  transform: rotateY(180deg); /* IMPORTANT: cachée au début */
+  gap: 10px;
+}
+
+.card-front img {
+  width: 70%;
+  height: 70%;
+  object-fit: contain;
+  border-radius: 10px;
+  transition: transform 0.3s;
+}
+
+.card-front p {
+  font-size: 1rem;
+  font-weight: bold;
+  margin: 0;
+  color: #2C3E50;
+  text-align: center;
+}
+
+.pokemon-type {
+  background: #4DA6FF;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  font-weight: bold;
+}
+
+/* Carte shiny */
+.card-front.shiny {
+  background: linear-gradient(135deg, #FFF9C4, #FFF176);
+  border-color: #FFD700;
+  animation: shinyGlow 2s infinite alternate;
+}
+
+@keyframes shinyGlow {
+  0% {
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+  }
+  100% {
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
+  }
+}
+
+/* ====== ÉCRAN DE FIN DE JEU ====== */
+.game-over {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 40px;
+  border-radius: 30px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+  max-width: 90%;
+  width: 600px;
+  text-align: center;
+  animation: gameOverAppear 0.5s ease-out;
+}
+
+@keyframes gameOverAppear {
+  from { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+  to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+
+.game-over h2 {
+  color: #4DA6FF;
+  margin-bottom: 20px;
+  font-size: 2.5rem;
+}
+
+.final-stats {
+  background: #f8f9fa;
+  padding: 25px;
+  border-radius: 20px;
+  margin: 25px 0;
+}
+
+.final-stats p {
+  margin: 15px 0;
+  font-size: 1.2rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.final-stats strong {
+  color: #4DA6FF;
+}
+
+.new-record {
+  background: linear-gradient(45deg, #FFD700, #FFA500);
+  color: #2C3E50;
+  padding: 15px;
+  border-radius: 15px;
+  font-weight: bold;
+  margin: 20px 0;
+  animation: recordFlash 1s infinite;
+}
+
+@keyframes recordFlash {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+.game-over-actions {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+/* ====== BOUTONS ====== */
+.restart-btn, .level-btn, .start-btn {
+  padding: 15px 30px;
+  border: none;
+  border-radius: 15px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.restart-btn {
+  background: linear-gradient(135deg, #4DA6FF, #1E8CFF);
+  color: white;
+}
+
+.level-btn {
+  background: linear-gradient(135deg, #9B59B6, #8E44AD);
+  color: white;
+}
+
+.start-btn {
+  background: linear-gradient(135deg, #FF6B6B, #FF4757);
+  color: white;
+  font-size: 1.3rem;
+  padding: 20px 40px;
+}
+
+.restart-btn:hover, .level-btn:hover, .start-btn:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* ====== OVERLAY ====== */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 999;
+  backdrop-filter: blur(5px);
+}
+
+/* ====== RESPONSIVE PAR NIVEAU ====== */
+@media (max-width: 1024px) {
+  .cards-grid {
+    gap: 12px;
+    padding: 15px;
+  }
+  
+  .cards-grid.facile {
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 500px;
+  }
+  
+  .cards-grid.moyen {
+    grid-template-columns: repeat(4, 1fr);
+    max-width: 700px;
+  }
+  
+  .cards-grid.difficile {
+    grid-template-columns: repeat(5, 1fr);
+    max-width: 900px;
+  }
+}
+
+@media (max-width: 768px) {
+  .memory-game-container {
+    padding: 15px;
+  }
+  
+  .game-info {
+    flex-direction: column;
+    gap: 20px;
+    padding: 15px;
+  }
+  
+  .stats {
+    width: 100%;
+    justify-content: space-around;
+  }
+  
+  .moves, .timer {
+    min-width: 120px;
+    padding: 10px 15px;
+    font-size: 1rem;
+  }
+  
+  .cards-grid {
+    gap: 10px;
+    padding: 10px;
+  }
+  
+  .cards-grid.facile {
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 400px;
+  }
+  
+  .cards-grid.moyen {
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 450px;
+  }
+  
+  .cards-grid.difficile {
+    grid-template-columns: repeat(4, 1fr);
+    max-width: 500px;
+  }
+  
+  .card-back span {
+    font-size: 2.5rem;
+  }
+  
+  .card-front p {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .memory-game-container {
+    padding: 10px;
+  }
+  
+  .cards-grid {
+    gap: 8px;
+    padding: 10px;
+  }
+  
+  .cards-grid.facile {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 300px;
+  }
+  
+  .cards-grid.moyen {
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 320px;
+  }
+  
+  .cards-grid.difficile {
+    grid-template-columns: repeat(4, 1fr);
+    max-width: 340px;
+  }
+  
+  .card-back span {
+    font-size: 2rem;
+  }
+  
+  .card-front p {
+    font-size: 0.8rem;
+  }
+  
+  .level-select {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .level-select select {
+    width: 100%;
+  }
+  
+  .game-over {
+    padding: 25px;
+    width: 95%;
+  }
+  
+  .game-over h2 {
+    font-size: 1.8rem;
+  }
+}
+/* ====== CONFIGURATION DES GRILLES ====== */
+
+/* Niveau Facile : 6 cartes (3 paires) = grille 3x2 */
+.cards-grid.facile {
+  grid-template-columns: repeat(3, 1fr);
+  max-width: 600px;
+}
+
+/* Niveau Moyen : 12 cartes (6 paires) = grille 4x3 */
+.cards-grid.moyen {
+  grid-template-columns: repeat(4, 1fr);
+  max-width: 800px;
+}
+
+/* Niveau Difficile : 18 cartes (9 paires) = grille 6x3 */
+.cards-grid.difficile {
+  grid-template-columns: repeat(6, 1fr);
+  max-width: 1000px;
+}
+
+/* ====== CARTES - Ajustement de la taille selon le niveau ====== */
+.cards-grid.facile .card {
+  aspect-ratio: 2/3;
+  height: auto;
+  min-height: 140px;
+}
+
+.cards-grid.moyen .card {
+  aspect-ratio: 2/3;
+  height: auto;
+  min-height: 130px;
+}
+
+.cards-grid.difficile .card {
+  aspect-ratio: 2/3;
+  height: auto;
+  min-height: 120px;
+}
+
+/* Images plus petites pour le niveau difficile */
+.cards-grid.difficile .card-front img {
+  width: 60%;
+  height: 60%;
+}
+
+.cards-grid.difficile .card-front p {
+  font-size: 0.9rem;
+}
+
+/* ====== RESPONSIVE ====== */
+@media (max-width: 1024px) {
+  .cards-grid.facile {
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 500px;
+  }
+  
+  .cards-grid.moyen {
+    grid-template-columns: repeat(4, 1fr);
+    max-width: 600px;
+  }
+  
+  .cards-grid.difficile {
+    grid-template-columns: repeat(5, 1fr);
+    max-width: 700px;
+  }
+}
+
+@media (max-width: 768px) {
+  .cards-grid.facile {
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 400px;
+  }
+  
+  .cards-grid.moyen {
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 450px;
+  }
+  
+  .cards-grid.difficile {
+    grid-template-columns: repeat(4, 1fr);
+    max-width: 500px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cards-grid.facile {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 300px;
+  }
+  
+  .cards-grid.moyen {
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 320px;
+  }
+  
+  .cards-grid.difficile {
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 340px;
+  }
+}
+/* ====== CONFIGURATION DES GRILLES ====== */
+
+/* Niveau Facile : 8 cartes (4 paires) = grille 4x2 */
+.cards-grid.facile {
+  grid-template-columns: repeat(4, 1fr);
+  max-width: 600px;
+}
+
+/* Niveau Moyen : 12 cartes (6 paires) = grille 4x3 */
+.cards-grid.moyen {
+  grid-template-columns: repeat(4, 1fr);
+  max-width: 600px;
+}
+
+/* Niveau Difficile : 16 cartes (8 paires) = grille 4x4 */
+.cards-grid.difficile {
+  grid-template-columns: repeat(4, 1fr);
+  max-width: 600px;
+}
+
+/* Niveau Expert : 20 cartes (10 paires) = grille 5x4 */
+.cards-grid.expert {
+  grid-template-columns: repeat(5, 1fr);
+  max-width: 700px;
+}
+
+/* Niveau Maître : 24 cartes (12 paires) = grille 6x4 */
+.cards-grid.maitre {
+  grid-template-columns: repeat(6, 1fr);
+  max-width: 800px;
+}
+
+/* ====== CARTES - Ajustement de la taille ====== */
+.cards-grid .card {
+  aspect-ratio: 2/3;
+  height: auto;
+  min-height: 140px;
+}
+
+/* Images plus petites pour les niveaux difficiles */
+.cards-grid.difficile .card-front img,
+.cards-grid.expert .card-front img,
+.cards-grid.maitre .card-front img {
+  width: 60%;
+  height: 60%;
+}
+
+.cards-grid.difficile .card-front p,
+.cards-grid.expert .card-front p,
+.cards-grid.maitre .card-front p {
+  font-size: 0.9rem;
+}
+
+/* ====== RESPONSIVE ====== */
+@media (max-width: 1024px) {
+  .cards-grid.facile,
+  .cards-grid.moyen,
+  .cards-grid.difficile {
+    grid-template-columns: repeat(4, 1fr);
+    max-width: 500px;
+  }
+  
+  .cards-grid.expert {
+    grid-template-columns: repeat(4, 1fr);
+    max-width: 500px;
+  }
+  
+  .cards-grid.maitre {
+    grid-template-columns: repeat(5, 1fr);
+    max-width: 550px;
+  }
+}
+
+@media (max-width: 768px) {
+  .cards-grid.facile,
+  .cards-grid.moyen {
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 400px;
+  }
+  
+  .cards-grid.difficile,
+  .cards-grid.expert {
+    grid-template-columns: repeat(4, 1fr);
+    max-width: 450px;
+  }
+  
+  .cards-grid.maitre {
+    grid-template-columns: repeat(4, 1fr);
+    max-width: 450px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cards-grid.facile {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 300px;
+  }
+  
+  .cards-grid.moyen,
+  .cards-grid.difficile {
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 320px;
+  }
+  
+  .cards-grid.expert {
+    grid-template-columns: repeat(4, 1fr);
+    max-width: 340px;
+  }
+  
+  .cards-grid.maitre {
+    grid-template-columns: repeat(4, 1fr);
+    max-width: 340px;
+  }
+}

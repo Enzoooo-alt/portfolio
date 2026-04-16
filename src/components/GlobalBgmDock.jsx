@@ -7,7 +7,8 @@ export default function GlobalBgmDock() {
   const location = useLocation();
   const { currentTrack, isPlaying, togglePlayback, nextTrack } = useBgm();
 
-  if (location.pathname === '/menu') return null;
+  const hiddenPaths = new Set(['/menu', '/']);
+  if (hiddenPaths.has(location.pathname)) return null;
 
   return (
     <div className="global-bgm-dock" aria-label="Contrôle musique de fond">

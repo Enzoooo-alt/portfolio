@@ -14,6 +14,8 @@ const DemonSlayerApp = lazy(() => import("./pages/DemonSlayer"));
 const InazumaDraft = lazy(() => import("./pages/InazumaDraft"));
 const CarsRacing = lazy(() => import("./pages/CarsRacing"));
 const YoKaiMedallium = lazy(() => import("./pages/YoKaiMedallium"));
+const AppDePlanning = lazy(() => import("./pages/AppDePlanning"));
+const MaBanqueProject = lazy(() => import("./pages/MaBanqueProject"));
 
 export default function App() {
   const location = useLocation();
@@ -30,7 +32,10 @@ export default function App() {
 
   return (
     <Suspense fallback={<AppLoader />}>
-      <>
+      <div className="app-shell">
+        <div className="app-aurora-layer" aria-hidden="true"></div>
+        <div className="app-grid-layer" aria-hidden="true"></div>
+
         <Routes>
           <Route path="/menu" element={<WiiMenu />} />
           <Route path="/" element={<Portfolio />} />
@@ -38,13 +43,15 @@ export default function App() {
           <Route path="/cuillere" element={<CuillereBot />} />
           <Route path="/pokemon-types" element={<PokemonTypes />} />
           <Route path="/app-de-gestion/*" element={<GestionLayout />} />
+          <Route path="/app-de-planning" element={<AppDePlanning />} />
+          <Route path="/mabanque" element={<MaBanqueProject />} />
           <Route path="/demon-slayer" element={<DemonSlayerApp />} />
           <Route path="/inazuma-draft" element={<InazumaDraft />} />
           <Route path="/cars-racing" element={<CarsRacing />} />
           <Route path="/yokai-medallium" element={<YoKaiMedallium />} />
         </Routes>
         <GlobalBgmDock />
-      </>
+      </div>
     </Suspense>
   );
 }
